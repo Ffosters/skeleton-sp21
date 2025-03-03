@@ -17,9 +17,9 @@ public class Collatz {
             return 1;}
         else
         {
-           // System.out.print(n+" ");
-           // return nextNumber(n % 2 == 0 ? n/2 : 1+3 * n);
-            return n % 2 == 0 ? n/2 : 1+3 * n;
+            System.out.print(n+" ");
+            return nextNumber(n % 2 == 0 ? n/2 : 1+3 * n);
+           // return n % 2 == 0 ? n/2 : 1+3 * n;
         }
 
     //nextNumber(n % 2 == 0 ? n/2 : 1+3 * n);
@@ -27,22 +27,13 @@ public class Collatz {
 
     public static void main(String[] args) {
         int n = 5;
-        System.out.print(n + " ");
-        while (n != 1) {
-            n = nextNumber(n);
-            System.out.print(n + " ");
-        }
-        System.out.println();
 //        System.out.print(n + " ");
 //        while (n != 1) {
 //            n = nextNumber(n);
 //            System.out.print(n + " ");
 //        }
-        System.out.println(nextNumber(n));
-//        while(n != 1){
-//            n = nextNumber(n);
-//            System.out.print(n+" ");
-//        }
+        nextNumber(n);
+
 
     }
 }
