@@ -10,7 +10,7 @@ public class IntListExercises {
      */
     public static void addConstant(IntList lst, int c) {
         IntList head = lst;
-        while (head.rest != null) {
+        while (head != null) {
             head.first += c;
             head = head.rest;
         }
@@ -21,37 +21,58 @@ public class IntListExercises {
      * the max value in the list starting at node has the same
      * first and last digit, for every node in L
      *
+     * ---1.找到当前最大值
+     * ---2.当前最大值最低位与最高位数值相同
+     *
      * @param L IntList from Lecture
      */
     public static void setToZeroIfMaxFEL(IntList L) {
         IntList p = L;
+        int max = 0;    //--
         while (p != null) {
-            if (firstDigitEqualsLastDigit(max(p))) {
+            max = max(p);  //++
+//            if (firstDigitEqualsLastDigit(p.first)){
+//           // if (firstDigitEqualsLastDigit(max(p)))
+//                p.first = 0;
+//            }
+            if(firstDigitEqualsLastDigit(max)){
                 p.first = 0;
             }
             p = p.rest;
+
+
         }
     }
 
     /** Returns the max value in the IntList starting at L. */
     public static int max(IntList L) {
         int max = L.first;
-        IntList p = L.rest;
-        while (p != null) {
-            if (p.first > max) {
-                max = p.first;
+        IntList curr = L.rest;
+        while(curr != null){
+            if(max < curr.first){
+                max = curr.first;
             }
-            p = p.rest;
+            curr = curr.rest;
         }
         return max;
+//        int max = L.first;
+//        IntList p = L.rest;
+//        while (p != null) {
+//            if (p.first > max) {
+//                max = p.first;
+//            }
+//            p = p.rest;
+//        }
+//        return max;
     }
 
     /** Returns true if the last digit of x is equal to
      *  the first digit of x.
      */
     public static boolean firstDigitEqualsLastDigit(int x) {
+        if(x <10){return true;}
         int lastDigit = x % 10;
-        while (x > 10) {
+        while (x >= 10) {
             x = x / 10;
         }
         int firstDigit = x % 10;
@@ -67,16 +88,26 @@ public class IntListExercises {
      */
     public static boolean squarePrimes(IntList lst) {
         // Base Case: we have reached the end of the list
-        if (lst == null) {
-            return false;
+//        if (lst == null) {
+//            return false;
+//        }
+        /**
+         * 1.确定是否为素数,素数值要平方
+         * 2.有一个素数就可以返回true
+         */
+        //boolean currElemIsPrime = Primes.isPrime(lst.first);
+        boolean hasPrime = false;
+        while(lst != null){
+            if (Primes.isPrime(lst.first)) {
+                hasPrime = true;
+                lst.first *= lst.first;
+            }
+            lst = lst.rest;
+
         }
 
-        boolean currElemIsPrime = Primes.isPrime(lst.first);
 
-        if (currElemIsPrime) {
-            lst.first *= lst.first;
-        }
-
-        return currElemIsPrime || squarePrimes(lst.rest);
+       // return currElemIsPrime || squarePrimes(lst.rest);
+        return hasPrime;
     }
 }
