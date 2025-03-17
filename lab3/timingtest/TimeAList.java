@@ -26,7 +26,7 @@ public class TimeAList {
         AList<Integer> Ns = new AList<>();
         //AList<Integer> aList1 = new AList<>();  //写错了导致运行时间偏大 应该放在每次循环内部
         AList<Double> times = new AList<>();
-        int multi = 15;
+        int multi = 8;
         int[] testNum = new int[multi];
         for(int i = 0; i < testNum.length; i++ ){
             AList<Integer> aList1 = new AList<>();  //这里

@@ -44,7 +44,7 @@ public class TimeSLList {
             double time = sw.elapsedTime();
             Ns.addLast(testNum[i]);
             times.addLast(time);
-            printTimingTable(Ns, times , opT);
+            //printTimingTable(Ns, times , opT);
         }
        printTimingTable(Ns, times , Ns);
     }
