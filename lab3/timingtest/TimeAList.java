@@ -24,11 +24,12 @@ public class TimeAList {
     public static void timeAListConstruction() {
         // TODO: YOUR CODE HERE
         AList<Integer> Ns = new AList<>();
-        AList<Integer> aList1 = new AList<>();
+        //AList<Integer> aList1 = new AList<>();  //写错了导致运行时间偏大 应该放在每次循环内部
         AList<Double> times = new AList<>();
-        int[] testNum = new int[8];
+        int multi = 15;
+        int[] testNum = new int[multi];
         for(int i = 0; i < testNum.length; i++ ){
-
+            AList<Integer> aList1 = new AList<>();  //这里
             testNum[i] = (int) (Math.pow(2,i) * 1000);
             Stopwatch sw =new Stopwatch();
             for(int j = 0; j < testNum[i]; j++){
