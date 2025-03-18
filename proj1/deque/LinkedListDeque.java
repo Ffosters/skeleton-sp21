@@ -62,22 +62,26 @@ public class LinkedListDeque<Apple> implements Iterable<Apple> {
     }
 
     //删除
-    public void removeLast(){
+    public Apple removeLast(){
         //是否要查空？
         //if(sentinelL.prev == null){return;}
-        if(isEmpty()){return;}
+        if(isEmpty()){return null;}
+        Apple item = (Apple)sentinelL.prev.data;
         IntNode t = sentinelL.prev.prev;
         t.next = sentinelL;
         sentinelL.prev = t;    //空指针异常？   不会 如果不是空，只会指向头 / 尾
         size--;
+        return item;
     }
-    public void removeFirst(){
+    public Apple removeFirst(){
         //if(sentinelF.next == null){return;}  //有问题 错误的 修正为下面的
-        if(isEmpty()){return;}
+        if(isEmpty()){return null;}
+        Apple item = (Apple)sentinelF.next.data;
         IntNode t = sentinelF.next.next;
         t.prev = sentinelF;
         sentinelF.next = t;
         size--;
+        return item;
     }
 
     public int size(){
@@ -91,7 +95,7 @@ public class LinkedListDeque<Apple> implements Iterable<Apple> {
     private class inIterator implements Iterator<Apple>{
         IntNode curr;
         public inIterator(){
-                curr = sentinelF;
+                curr = sentinelF.next;
         }
 
         @Override
@@ -142,6 +146,7 @@ public class LinkedListDeque<Apple> implements Iterable<Apple> {
     }
 
     public void printDeque(){
+        if(isEmpty()){return;}
         IntNode t = sentinelF.next;
         while(t != sentinelL){
             System.out.print(t.data + " ");
