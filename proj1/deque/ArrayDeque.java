@@ -1,7 +1,7 @@
 package deque;
 import java.util.Iterator;
 
-public class ArrayDeque<Rice> implements Iterable<Rice> {
+public class ArrayDeque<Rice> implements Iterable<Rice>,Deque<Rice> {
     private Rice[] aArray;
     private int size;
     public int capacity = 8;
@@ -31,23 +31,28 @@ public class ArrayDeque<Rice> implements Iterable<Rice> {
         size++;
     }
 
-    public void removeFirst(){
-        if(size == 0){return;}
+    public Rice removeFirst(){
+        if(size == 0){return null;}
+        Rice result = aArray[front];
         aArray[front] = null;
         front = (front + 1) % capacity;
         size--;
         checkSize();
+        return result;
     }
 
-    public void removeLast(){
-        if(size == 0){return;}
+    public Rice removeLast(){
+        if(size == 0){return null;}
+        Rice result = aArray[(rear - 1 + capacity) % capacity];
         aArray[(rear - 1 + capacity) % capacity] = null;
         rear = (rear - 1 + capacity) % capacity;
         size--;
         checkSize();
+        return result;
     }
 
     public Rice get(int index){
+        index = (front + index) % capacity;
         if(aArray[index] == null){return null;}
         return aArray[index];
     }
@@ -89,9 +94,9 @@ public class ArrayDeque<Rice> implements Iterable<Rice> {
         else return capacity/=2;
     }
 
-    public boolean isEmpty(){
-        return front == rear;
-    }
+//    public boolean isEmpty(){
+//        return front == rear;
+//    }
 
     //Iterator
     private class inIterator implements Iterator<Rice>{
@@ -106,7 +111,7 @@ public class ArrayDeque<Rice> implements Iterable<Rice> {
 
         @Override
         public boolean hasNext(){
-            return pos == iRear;
+            return pos != iRear;
         }
 
         @Override

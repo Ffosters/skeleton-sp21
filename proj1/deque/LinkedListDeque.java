@@ -1,6 +1,6 @@
 package deque;
 import java.util.Iterator;
-public class LinkedListDeque<Apple> implements Iterable<Apple> {
+public class LinkedListDeque<Apple> implements Deque<Apple>,Iterable<Apple> {
     private IntNode sentinelF;
     private IntNode sentinelL;
     private int size;
@@ -88,9 +88,11 @@ public class LinkedListDeque<Apple> implements Iterable<Apple> {
         return size;
     }
 
-    public boolean isEmpty(){
-        return sentinelF.next == sentinelL;
-    }
+    //---------------------------------------
+    //只要size == 0 就是空  也就可以默认所有都这样执行了
+//    public boolean isEmpty(){
+//        return sentinelF.next == sentinelL;
+//    }
 
     private class inIterator implements Iterator<Apple>{
         IntNode curr;

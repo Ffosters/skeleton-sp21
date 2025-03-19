@@ -98,8 +98,8 @@ public class LinkedListDequeTest {
         lld3.addFirst(true);
 
         String s = lld1.removeFirst();
-        //double d = lld2.removeFirst();
-        //boolean b = lld3.removeFirst();
+        double d = lld2.removeFirst();
+        boolean b = lld3.removeFirst();
     }
 
     @Test
@@ -107,7 +107,6 @@ public class LinkedListDequeTest {
     public void emptyNullReturnTest() {
 
         System.out.println("Make sure to uncomment the lines below (and delete this print statement).");
-        /*
         LinkedListDeque<Integer> lld1 = new LinkedListDeque<Integer>();
 
         boolean passed1 = false;
@@ -115,7 +114,6 @@ public class LinkedListDequeTest {
         assertEquals("Should return null when removeFirst is called on an empty Deque,", null, lld1.removeFirst());
         assertEquals("Should return null when removeLast is called on an empty Deque,", null, lld1.removeLast());
 
-        */
     }
 
     @Test
@@ -123,7 +121,6 @@ public class LinkedListDequeTest {
     public void bigLLDequeTest() {
 
         System.out.println("Make sure to uncomment the lines below (and delete this print statement).");
-        /*
         LinkedListDeque<Integer> lld1 = new LinkedListDeque<Integer>();
         for (int i = 0; i < 1000000; i++) {
             lld1.addLast(i);
@@ -137,6 +134,24 @@ public class LinkedListDequeTest {
             assertEquals("Should have the same value", i, (double) lld1.removeLast(), 0.0);
         }
 
-        */
     }
+
+    @Test
+    public void iteratorTest(){
+        LinkedListDeque<Integer> l1 = new LinkedListDeque<>();
+        LinkedListDeque<Integer> l2 = new LinkedListDeque<>();
+        LinkedListDeque<Integer> l3 = new LinkedListDeque<>();
+//        int N = 10;
+//        for(int i = 0; i < N; i++){
+//            l1.addLast(i);
+//            l2.addLast(i);
+//            if(i < N/2){
+//                l3.addLast(i);
+//            }
+//        }
+        assertEquals("l1 VS l2",true, l1.equals(l2));
+        //assertEquals("l1 VS l3",false, l1.equals(l3));
+
+    }
+
 }
