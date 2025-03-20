@@ -152,8 +152,10 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
                     return false;
                 }
             }
+            return true;
         }
-        return true;
+        return false;
+
     }
 
 
@@ -182,10 +184,10 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
     }
 
     public T getRecursive(int index) {
-        if (isEmpty() || index > size) {
+        if (isEmpty() || index > size || index < 0) {
             return null;
         }
-        IntNode curr = sentinelF;
+        IntNode curr = sentinelF.next;
         return getWithRecursive(index, curr);
 
 
@@ -195,7 +197,7 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
         if (index == 0) {
             return curr.data;
         }
-        return getWithRecursive(--index,curr.next);
+        return getWithRecursive(--index, curr.next);
     }
 
 

@@ -1,16 +1,20 @@
 package gh2;
 
 // TODO: uncomment the following import once you're ready to start this portion
+
 import deque.Deque;
 import deque.ArrayDeque;
+
 import java.util.Iterator;
 // TODO: maybe more imports
 
 //Note: This file will not compile until you complete the Deque implementations
 public class GuitarString {
-    /** Constants. Do not change. In case you're curious, the keyword final
+    /**
+     * Constants. Do not change. In case you're curious, the keyword final
      * means the values cannot be changed at runtime. We'll discuss this and
-     * other topics in lecture on Friday. */
+     * other topics in lecture on Friday.
+     */
     private static final int SR = 44100;      // Sampling Rate
     private static final double DECAY = .996; // energy decay factor
 
@@ -25,8 +29,8 @@ public class GuitarString {
         //       better accuracy, use the Math.round() function before casting.
         //       Your should initially fill your buffer array with zeros.
         buffer = new ArrayDeque<>();
-        int capacity =(int) Math.round(SR / frequency);
-        while(capacity > 0){
+        int capacity = (int) Math.round(SR / frequency);
+        while (capacity > 0) {
             buffer.addLast(0.0);
             capacity--;
         }
@@ -43,14 +47,14 @@ public class GuitarString {
         //       other. This does not mean that you need to check that the numbers
         //       are different from each other. It means you should repeatedly call
         //       Math.random() - 0.5 to generate new random numbers for each array index.
-       // Iterator<Double> dequeIterator = buffer.iterator();
+        // Iterator<Double> dequeIterator = buffer.iterator();
 //        while(dequeIterator.hasNext()){
 //            dequeIterator.next() =
 //        }
 
-        for(int i = 0; i < buffer.size(); i++){
+        for (int i = 0; i < buffer.size(); i++) {
             buffer.removeFirst();
-            buffer.addLast(Math.random()-0.5);
+            buffer.addLast(Math.random() - 0.5);
         }
 
 
@@ -63,7 +67,7 @@ public class GuitarString {
         // TODO: Dequeue the front sample and enqueue a new sample that is
         //       the average of the two multiplied by the DECAY factor.
         //       **Do not call StdAudio.play().**
-        double oldFront = (double)buffer.removeFirst();
+        double oldFront = (double) buffer.removeFirst();
         double newFront = buffer.get(0);
         double newData = 0.996 * ((oldFront + newFront) / 2);
         buffer.addLast(newData);
@@ -76,4 +80,4 @@ public class GuitarString {
         return buffer.get(0);
     }
 }
-    // TODO: Remove all comments that say TODO when you're done.
+// TODO: Remove all comments that say TODO when you're done.

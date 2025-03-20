@@ -62,6 +62,7 @@ public class ArrayDeque<T> implements Iterable<T>, Deque<T> {
     }
 
     public T get(int index) {
+        if(isEmpty() || index < 0){return null;}
         index = (front + index) % capacity;
         if (aArray[index] == null) {
             return null;
@@ -152,6 +153,9 @@ public class ArrayDeque<T> implements Iterable<T>, Deque<T> {
 
     @Override
     public boolean equals(Object o) {
+        if(this == o){
+            return true;
+        }
         if (o instanceof ArrayDeque) {
             ArrayDeque other = (ArrayDeque) o;
             if (other.size != size) {
@@ -164,8 +168,9 @@ public class ArrayDeque<T> implements Iterable<T>, Deque<T> {
                     return false;
                 }  //不太清楚到底应该用 != 还是 equals
             }
+            return true;
         }
-        return true;
+        return false;
     }
 
 
