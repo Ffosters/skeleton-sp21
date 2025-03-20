@@ -154,4 +154,25 @@ public class LinkedListDequeTest {
 
     }
 
+    @Test
+    public void test1(){
+        LinkedListDeque<Integer> deque = new LinkedListDeque<>();
+
+        System.out.println("===== 测试连续插入和删除 =====");
+        for (int i = 0; i < 100; i++) {
+            deque.addLast(i);
+        }
+        System.out.println("Size after adding 100 elements: " + deque.size()); // 预期 100
+
+        for (int i = 0; i < 50; i++) {
+            deque.removeFirst();
+        }
+        System.out.println("Size after removing 50 elements: " + deque.size()); // 预期 50
+
+        for (int i = 0; i < 50; i++) {
+            deque.removeLast();
+        }
+        System.out.println("Size after removing all elements: " + deque.size()); // 预期 0
+    }
+
 }

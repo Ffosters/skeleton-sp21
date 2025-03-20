@@ -1,10 +1,10 @@
 package deque;
 import java.util.Iterator;
 
-public class ArrayDeque<Rice> implements Iterable<Rice>,Deque<Rice> {
-    private Rice[] aArray;
+public class ArrayDeque<T> implements Iterable<T>,Deque<T> {
+    private T[] aArray;
     private int size;
-    public int capacity = 8;
+    private int capacity = 8;
     private int front = 0;
     private int rear = 0;
     private double spaceAvaliable = 0.25;//0.25;
@@ -12,28 +12,28 @@ public class ArrayDeque<Rice> implements Iterable<Rice>,Deque<Rice> {
         rear 恒定向右移
  */
     public ArrayDeque(){
-        aArray = (Rice[]) new Object[capacity];                                                    //aArray = new Rice[capacity];
+        aArray = (T[]) new Object[capacity];                                                    //aArray = new Rice[capacity];
         size = 0;
     }
 
 
 
-    public void addFirst(Rice value){
+    public void addFirst(T value){
         if(size == capacity){resize(true);}
         front = (front - 1 + capacity) % capacity;  //左移
         aArray[front] = value;                      //存入数值
         size++;
     }
-    public void addLast(Rice value){
+    public void addLast(T value){
         if(size == capacity){resize(true);}
         aArray[rear] = value;                   //存入数值
         rear = (rear + 1) % capacity;           //右移
         size++;
     }
 
-    public Rice removeFirst(){
+    public T removeFirst(){
         if(size == 0){return null;}
-        Rice result = aArray[front];
+        T result = aArray[front];
         aArray[front] = null;
         front = (front + 1) % capacity;
         size--;
@@ -41,9 +41,9 @@ public class ArrayDeque<Rice> implements Iterable<Rice>,Deque<Rice> {
         return result;
     }
 
-    public Rice removeLast(){
+    public T removeLast(){
         if(size == 0){return null;}
-        Rice result = aArray[(rear - 1 + capacity) % capacity];
+        T result = aArray[(rear - 1 + capacity) % capacity];
         aArray[(rear - 1 + capacity) % capacity] = null;
         rear = (rear - 1 + capacity) % capacity;
         size--;
@@ -51,7 +51,7 @@ public class ArrayDeque<Rice> implements Iterable<Rice>,Deque<Rice> {
         return result;
     }
 
-    public Rice get(int index){
+    public T get(int index){
         index = (front + index) % capacity;
         if(aArray[index] == null){return null;}
         return aArray[index];
@@ -65,10 +65,10 @@ public class ArrayDeque<Rice> implements Iterable<Rice>,Deque<Rice> {
 
     public ArrayDeque(ArrayDeque other){//aArray = new Rice[capacity];
         size = 0;
-        aArray = (Rice[]) new Object[other.capacity];
+        aArray = (T[]) new Object[other.capacity];
         this.capacity = other.capacity;
         for(int i = other.front; i != other.rear ; i = (i + 1) % capacity){
-            this.addLast((Rice)other.aArray[i]);
+            this.addLast((T)other.aArray[i]);
         }
 
     }
@@ -78,11 +78,19 @@ public class ArrayDeque<Rice> implements Iterable<Rice>,Deque<Rice> {
      */
     public void resize(boolean flag){
        // ArrayDeque newArray = new ArrayDeque();
-        Rice[] newArray = (Rice[]) new Object[resetCapacity(flag)];
-                                                                    //newArray只是rice类型的数组而这个数组并没有addlast方法；
+        int tCapacity = capacity;
+        T[] newArray = (T[]) new Object[resetCapacity(flag)];
+        //int index = front;
+        // newArray只是rice类型的数组而这个数组并没有addlast方法；
+        /*
+            扩大数组与缩小数组时capaticy已经发生了变化需要有值保证它的不变
+                true 是扩大
+                false 是缩小
+         */
+
         for(int i = 0; i < size(); i++){                                //newArray.resetCapacity();
             newArray[i] = aArray[front];
-            front =  (front + 1) % (capacity / 2);
+            front =  (front + 1) % tCapacity;
         }
         aArray = newArray;
         front = 0;
@@ -99,7 +107,7 @@ public class ArrayDeque<Rice> implements Iterable<Rice>,Deque<Rice> {
 //    }
 
     //Iterator
-    private class inIterator implements Iterator<Rice>{
+    private class inIterator implements Iterator<T>{
         public int iFront;
         public int iRear;
         public int pos;
@@ -115,14 +123,14 @@ public class ArrayDeque<Rice> implements Iterable<Rice>,Deque<Rice> {
         }
 
         @Override
-        public Rice next(){
-            Rice tData = (Rice)aArray[pos];
+        public T next(){
+            T tData = (T)aArray[pos];
             pos = (pos + 1) % capacity;
             return tData;
         }
     }
 
-    public Iterator<Rice> iterator(){
+    public Iterator<T> iterator(){
         return new inIterator();
     }
 
@@ -131,8 +139,8 @@ public class ArrayDeque<Rice> implements Iterable<Rice>,Deque<Rice> {
         if(o instanceof ArrayDeque){
             ArrayDeque other = (ArrayDeque) o;
             if(other.size != size){return false;}
-            Iterator<Rice> origIter = this.iterator();
-            Iterator<Rice> compIter = other.iterator();
+            Iterator<T> origIter = this.iterator();
+            Iterator<T> compIter = other.iterator();
             while(origIter.hasNext() && compIter.hasNext()){
                 if(origIter.next() != compIter.next()){return false;}  //不太清楚到底应该用 != 还是 equals
             }

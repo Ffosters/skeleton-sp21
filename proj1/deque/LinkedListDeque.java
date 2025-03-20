@@ -1,6 +1,6 @@
 package deque;
 import java.util.Iterator;
-public class LinkedListDeque<Apple> implements Deque<Apple>,Iterable<Apple> {
+public class LinkedListDeque<T> implements Deque<T>,Iterable<T> {
     private IntNode sentinelF;
     private IntNode sentinelL;
     private int size;
@@ -11,9 +11,9 @@ public class LinkedListDeque<Apple> implements Deque<Apple>,Iterable<Apple> {
     public class IntNode {
         public IntNode prev;
         public IntNode next;
-        public Apple data;
+        public T data;
 
-        public IntNode(Apple d,IntNode p,IntNode n){
+        public IntNode(T d, IntNode p, IntNode n){
             data = d;
             prev = p;
             next = n;
@@ -45,7 +45,7 @@ public class LinkedListDeque<Apple> implements Deque<Apple>,Iterable<Apple> {
     }
 
     //添加
-    public void addFirst(Apple data){
+    public void addFirst(T data){
         if(data == null){throw new IllegalArgumentException("can't add null");}
         IntNode t = sentinelF.next;
         sentinelF.next = new IntNode(data,sentinelF,sentinelF.next);
@@ -53,7 +53,7 @@ public class LinkedListDeque<Apple> implements Deque<Apple>,Iterable<Apple> {
         size++;
     }
 
-    public void addLast(Apple data){
+    public void addLast(T data){
         if(data == null){throw new IllegalArgumentException("can't add null");}
         IntNode t = sentinelL.prev;
         sentinelL.prev = new IntNode(data,sentinelL.prev,sentinelL);
@@ -62,21 +62,21 @@ public class LinkedListDeque<Apple> implements Deque<Apple>,Iterable<Apple> {
     }
 
     //删除
-    public Apple removeLast(){
+    public T removeLast(){
         //是否要查空？
         //if(sentinelL.prev == null){return;}
         if(isEmpty()){return null;}
-        Apple item = (Apple)sentinelL.prev.data;
+        T item = (T)sentinelL.prev.data;
         IntNode t = sentinelL.prev.prev;
         t.next = sentinelL;
         sentinelL.prev = t;    //空指针异常？   不会 如果不是空，只会指向头 / 尾
         size--;
         return item;
     }
-    public Apple removeFirst(){
+    public T removeFirst(){
         //if(sentinelF.next == null){return;}  //有问题 错误的 修正为下面的
         if(isEmpty()){return null;}
-        Apple item = (Apple)sentinelF.next.data;
+        T item = (T)sentinelF.next.data;
         IntNode t = sentinelF.next.next;
         t.prev = sentinelF;
         sentinelF.next = t;
@@ -94,7 +94,7 @@ public class LinkedListDeque<Apple> implements Deque<Apple>,Iterable<Apple> {
 //        return sentinelF.next == sentinelL;
 //    }
 
-    private class inIterator implements Iterator<Apple>{
+    private class inIterator implements Iterator<T>{
         IntNode curr;
         public inIterator(){
                 curr = sentinelF.next;
@@ -106,14 +106,14 @@ public class LinkedListDeque<Apple> implements Deque<Apple>,Iterable<Apple> {
         }
 
         @Override
-        public Apple next(){
-            Apple tApple = (Apple)curr.data;
+        public T next(){
+            T tApple = (T)curr.data;
             curr = curr.next;
             return tApple;
         }
     }
 
-    public Iterator<Apple> iterator(){
+    public Iterator<T> iterator(){
         return new inIterator();
     }
 
@@ -123,8 +123,8 @@ public class LinkedListDeque<Apple> implements Deque<Apple>,Iterable<Apple> {
         if(o instanceof LinkedListDeque){  //if(o instanceof LinkedListDeque oLLD) 这个版本不能使用
             LinkedListDeque oLLD = (LinkedListDeque) o;
             if(oLLD.size != this.size){return false;}
-            Iterator<Apple> origItr = this.iterator();
-            Iterator<Apple> compItr = oLLD.iterator();
+            Iterator<T> origItr = this.iterator();
+            Iterator<T> compItr = oLLD.iterator();
             while(origItr.hasNext() && compItr.hasNext()){
                 if(!origItr.next().equals(compItr.next())){return false;}
             }
@@ -136,7 +136,7 @@ public class LinkedListDeque<Apple> implements Deque<Apple>,Iterable<Apple> {
 
 
 
-    public Apple get(int index){
+    public T get(int index){
         if(isEmpty()){return null;}
         IntNode t = sentinelF.next;
         if(index > size){return null;}
@@ -157,7 +157,7 @@ public class LinkedListDeque<Apple> implements Deque<Apple>,Iterable<Apple> {
         System.out.println();
     }
 
-    public Apple getRecursive(int index,IntNode curr) {
+    public T getRecursive(int index, IntNode curr) {
         if(curr == null){return null;}
         if(index == 0){return curr.data;}
         return getRecursive(index--,curr.next);
