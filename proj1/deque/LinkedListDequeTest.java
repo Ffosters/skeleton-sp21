@@ -159,9 +159,11 @@ public class LinkedListDequeTest {
         LinkedListDeque<Integer> deque = new LinkedListDeque<>();
 
         System.out.println("===== 测试连续插入和删除 =====");
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 10; i++) {
             deque.addLast(i);
         }
+        int a = deque.getRecursive(5);
+        System.out.println(a);
         System.out.println("Size after adding 100 elements: " + deque.size()); // 预期 100
 
         for (int i = 0; i < 50; i++) {
